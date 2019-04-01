@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_sparkstreaming" default="compile.module.sparkstreaming">
+  <dirname property="module.sparkstreaming.basedir" file="${ant.file.module_sparkstreaming}"/>
+  
+  <property name="module.jdk.home.sparkstreaming" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.sparkstreaming" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.sparkstreaming" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.sparkstreaming" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="sparkstreaming.output.dir" value="${module.sparkstreaming.basedir}/../../target/scala-2.11/classes"/>
+  <property name="sparkstreaming.testoutput.dir" value="${module.sparkstreaming.basedir}/../../target/scala-2.11/test-classes"/>
+  
+  <path id="sparkstreaming.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="sparkstreaming.module.production.classpath">
+    <path refid="${module.jdk.classpath.sparkstreaming}"/>
+    <path refid="library.sbt:_aopalliance:aopalliance:1.0:jar.classpath"/>
+    
+    <path refid="library.sbt:_xmlenc:xmlenc:0.52:jar.classpath"/>
+    <path refid="library.sbt:_xml-apis:xml-apis:1.3.04:jar.classpath"/>
+    <path refid="library.sbt:_xerces:xercesimpl:2.9.1:jar.classpath"/>
+    <path refid="library.sbt:_oro:oro:2.0.8:jar.classpath"/>
+    <path refid="library.sbt:_org.xerial.snappy:snappy-java:1.1.2.6:jar.classpath"/>
+    <path refid="library.sbt:_org.tukaani:xz:1.0:jar.classpath"/>
+    <path refid="library.sbt:_org.spark-project.spark:unused:1.0.0:jar.classpath"/>
+    <path refid="library.sbt:_org.sonatype.sisu.inject:cglib:2.2.1-v20090111:jar.classpath"/>
+    <path refid="library.sbt:_org.slf4j:slf4j-log4j12:1.7.21:jar.classpath"/>
+    <path refid="library.sbt:_org.slf4j:slf4j-api:1.7.26:jar.classpath"/>
+    <path refid="library.sbt:_org.slf4j:jul-to-slf4j:1.7.16:jar.classpath"/>
+    <path refid="library.sbt:_org.slf4j:jcl-over-slf4j:1.7.16:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang.modules:scala-xml_2.11:1.0.3:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang.modules:scala-parser-combinators_2.11:1.0.4:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang:scalap:2.11.6:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang:scala-reflect:2.11.6:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang:scala-library:2.11.6:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang:scala-compiler:2.11.6:jar.classpath"/>
+    <path refid="library.sbt:_org.roaringbitmap:roaringbitmap:0.5.11:jar.classpath"/>
+    <path refid="library.sbt:_org.objenesis:objenesis:2.1:jar.classpath"/>
+    <path refid="library.sbt:_org.mortbay.jetty:jetty-util:6.1.26:jar.classpath"/>
+    <path refid="library.sbt:_org.lz4:lz4-java:1.4.0:jar.classpath"/>
+    <path refid="library.sbt:_org.json4s:json4s-jackson_2.11:3.2.11:jar.classpath"/>
+    <path refid="library.sbt:_org.json4s:json4s-core_2.11:3.2.11:jar.classpath"/>
+    <path refid="library.sbt:_org.json4s:json4s-ast_2.11:3.2.11:jar.classpath"/>
+    <path refid="library.sbt:_org.javassist:javassist:3.18.1-ga:jar.classpath"/>
+    <path refid="library.sbt:_org.htrace:htrace-core:3.0.4:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.media:jersey-media-jaxb:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.core:jersey-server:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.core:jersey-common:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.core:jersey-client:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.containers:jersey-container-servlet-core:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.containers:jersey-container-servlet:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.bundles.repackaged:jersey-guava:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2.external:javax.inject:2.4.0-b34:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2.external:aopalliance-repackaged:2.4.0-b34:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2:osgi-resource-locator:1.0.1:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2:hk2-utils:2.4.0-b34:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2:hk2-locator:2.4.0-b34:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2:hk2-api:2.4.0-b34:jar.classpath"/>
+    <path refid="library.sbt:_org.fusesource.leveldbjni:leveldbjni-all:1.8:jar.classpath"/>
+    <path refid="library.sbt:_org.codehaus.jettison:jettison:1.1:jar.classpath"/>
+    <path refid="library.sbt:_org.codehaus.jackson:jackson-xc:1.9.13:jar.classpath"/>
+    <path refid="library.sbt:_org.codehaus.jackson:jackson-mapper-asl:1.9.13:jar.classpath"/>
+    <path refid="library.sbt:_org.codehaus.jackson:jackson-jaxrs:1.9.13:jar.classpath"/>
+    <path refid="library.sbt:_org.codehaus.jackson:jackson-core-asl:1.9.13:jar.classpath"/>
+    <path refid="library.sbt:_org.bouncycastle:bcprov-jdk15on:1.52:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.zookeeper:zookeeper:3.4.9:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.xbean:xbean-asm5-shaded:4.4:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-unsafe_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-tags_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-streaming_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-network-shuffle_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-network-common_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-launcher_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-kvstore_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-core_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.kafka:kafka_2.11:0.10.2.2:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.kafka:kafka-clients:0.10.2.2:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.ivy:ivy:2.4.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.httpcomponents:httpcore:4.4.1:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.httpcomponents:httpclient:4.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-yarn-server-common:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-yarn-common:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-yarn-client:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-yarn-api:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-mapreduce-client-shuffle:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-mapreduce-client-jobclient:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-mapreduce-client-core:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-mapreduce-client-common:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-mapreduce-client-app:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-hdfs:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-common:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-client:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-auth:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-annotations:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.directory.server:apacheds-kerberos-codec:2.0.0-m15:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.directory.server:apacheds-i18n:2.0.0-m15:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.directory.api:api-util:1.0.0-m20:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.directory.api:api-asn1-api:1.0.0-m20:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.curator:curator-recipes:2.6.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.curator:curator-framework:2.6.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.curator:curator-client:2.6.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.commons:commons-math3:3.4.1:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.commons:commons-lang3:3.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.commons:commons-crypto:1.0.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.commons:commons-compress:1.4.1:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.avro:avro-mapred:1.7.7:hadoop2:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.avro:avro-ipc:1.7.7:tests:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.avro:avro-ipc:1.7.7:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.avro:avro:1.7.7:jar.classpath"/>
+    <path refid="library.sbt:_net.sf.py4j:py4j:0.10.6:jar.classpath"/>
+    <path refid="library.sbt:_net.sf.jopt-simple:jopt-simple:5.0.3:jar.classpath"/>
+    <path refid="library.sbt:_net.razorvine:pyrolite:4.13:jar.classpath"/>
+    <path refid="library.sbt:_net.jpountz.lz4:lz4:1.3.0:jar.classpath"/>
+    <path refid="library.sbt:_net.java.dev.jets3t:jets3t:0.9.4:jar.classpath"/>
+    <path refid="library.sbt:_net.iharder:base64:2.3.8:jar.classpath"/>
+    <path refid="library.sbt:_log4j:log4j:1.2.17:jar.classpath"/>
+    <path refid="library.sbt:_javax.xml.stream:stax-api:1.0-2:jar.classpath"/>
+    <path refid="library.sbt:_javax.xml.bind:jaxb-api:2.2.2:jar.classpath"/>
+    <path refid="library.sbt:_javax.ws.rs:javax.ws.rs-api:2.0.1:jar.classpath"/>
+    <path refid="library.sbt:_javax.validation:validation-api:1.1.0.final:jar.classpath"/>
+    <path refid="library.sbt:_javax.servlet:javax.servlet-api:3.1.0:jar.classpath"/>
+    <path refid="library.sbt:_javax.inject:javax.inject:1:jar.classpath"/>
+    <path refid="library.sbt:_javax.annotation:javax.annotation-api:1.2:jar.classpath"/>
+    <path refid="library.sbt:_javax.activation:activation:1.1.1:jar.classpath"/>
+    <path refid="library.sbt:_io.netty:netty-all:4.1.17.final:jar.classpath"/>
+    <path refid="library.sbt:_io.netty:netty:3.9.9.final:jar.classpath"/>
+    <path refid="library.sbt:_io.dropwizard.metrics:metrics-jvm:3.1.5:jar.classpath"/>
+    <path refid="library.sbt:_io.dropwizard.metrics:metrics-json:3.1.5:jar.classpath"/>
+    <path refid="library.sbt:_io.dropwizard.metrics:metrics-graphite:3.1.5:jar.classpath"/>
+    <path refid="library.sbt:_io.dropwizard.metrics:metrics-core:3.1.5:jar.classpath"/>
+    <path refid="library.sbt:_commons-net:commons-net:2.2:jar.classpath"/>
+    <path refid="library.sbt:_commons-lang:commons-lang:2.6:jar.classpath"/>
+    <path refid="library.sbt:_commons-io:commons-io:2.4:jar.classpath"/>
+    <path refid="library.sbt:_commons-httpclient:commons-httpclient:3.1:jar.classpath"/>
+    <path refid="library.sbt:_commons-digester:commons-digester:1.8:jar.classpath"/>
+    <path refid="library.sbt:_commons-configuration:commons-configuration:1.6:jar.classpath"/>
+    <path refid="library.sbt:_commons-collections:commons-collections:3.2.2:jar.classpath"/>
+    <path refid="library.sbt:_commons-codec:commons-codec:1.12:jar.classpath"/>
+    <path refid="library.sbt:_commons-cli:commons-cli:1.2:jar.classpath"/>
+    <path refid="library.sbt:_commons-beanutils:commons-beanutils-core:1.8.0:jar.classpath"/>
+    <path refid="library.sbt:_commons-beanutils:commons-beanutils:1.7.0:jar.classpath"/>
+    <path refid="library.sbt:_com.yammer.metrics:metrics-core:2.2.0:jar.classpath"/>
+    <path refid="library.sbt:_com.twitter:chill_2.11:0.8.4:jar.classpath"/>
+    <path refid="library.sbt:_com.twitter:chill-java:0.8.4:jar.classpath"/>
+    <path refid="library.sbt:_com.thoughtworks.paranamer:paranamer:2.8:jar.classpath"/>
+    <path refid="library.sbt:_com.ning:compress-lzf:1.0.3:jar.classpath"/>
+    <path refid="library.sbt:_com.jamesmurty.utils:java-xmlbuilder:1.1:jar.classpath"/>
+    <path refid="library.sbt:_com.google.protobuf:protobuf-java:2.5.0:jar.classpath"/>
+    <path refid="library.sbt:_com.google.inject:guice:3.0:jar.classpath"/>
+    <path refid="library.sbt:_com.google.guava:guava:11.0.2:jar.classpath"/>
+    <path refid="library.sbt:_com.google.code.gson:gson:2.2.4:jar.classpath"/>
+    <path refid="library.sbt:_com.google.code.findbugs:jsr305:1.3.9:jar.classpath"/>
+    <path refid="library.sbt:_com.github.luben:zstd-jni:1.3.2-2:jar.classpath"/>
+    <path refid="library.sbt:_com.fasterxml.jackson.module:jackson-module-scala_2.11:2.6.7.1:jar.classpath"/>
+    <path refid="library.sbt:_com.fasterxml.jackson.module:jackson-module-paranamer:2.7.9:jar.classpath"/>
+    <path refid="library.sbt:_com.fasterxml.jackson.core:jackson-databind:2.6.7.1:jar.classpath"/>
+    <path refid="library.sbt:_com.fasterxml.jackson.core:jackson-core:2.6.7:jar.classpath"/>
+    <path refid="library.sbt:_com.fasterxml.jackson.core:jackson-annotations:2.6.7:jar.classpath"/>
+    <path refid="library.sbt:_com.esotericsoftware:minlog:1.3.0:jar.classpath"/>
+    <path refid="library.sbt:_com.esotericsoftware:kryo-shaded:3.0.3:jar.classpath"/>
+    <path refid="library.sbt:_com.clearspring.analytics:stream:2.7.0:jar.classpath"/>
+    <path refid="library.sbt:_com.101tec:zkclient:0.10:jar.classpath"/>
+  </path>
+  
+  <path id="sparkstreaming.runtime.production.module.classpath">
+    <pathelement location="${sparkstreaming.output.dir}"/>
+    
+    <path refid="library.sbt:_org.xerial.snappy:snappy-java:1.1.2.6:jar.classpath"/>
+    <path refid="library.sbt:_org.slf4j:slf4j-log4j12:1.7.21:jar.classpath"/>
+    <path refid="library.sbt:_org.slf4j:slf4j-api:1.7.26:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang.modules:scala-parser-combinators_2.11:1.0.4:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang:scala-library:2.11.6:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.zookeeper:zookeeper:3.4.9:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.kafka:kafka_2.11:0.10.2.2:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.kafka:kafka-clients:0.10.2.2:jar.classpath"/>
+    <path refid="library.sbt:_net.sf.jopt-simple:jopt-simple:5.0.3:jar.classpath"/>
+    <path refid="library.sbt:_net.jpountz.lz4:lz4:1.3.0:jar.classpath"/>
+    <path refid="library.sbt:_log4j:log4j:1.2.17:jar.classpath"/>
+    <path refid="library.sbt:_com.yammer.metrics:metrics-core:2.2.0:jar.classpath"/>
+    <path refid="library.sbt:_com.101tec:zkclient:0.10:jar.classpath"/>
+  </path>
+  
+  <path id="sparkstreaming.module.classpath">
+    <path refid="${module.jdk.classpath.sparkstreaming}"/>
+    <pathelement location="${sparkstreaming.output.dir}"/>
+    <path refid="library.sbt:_aopalliance:aopalliance:1.0:jar.classpath"/>
+    
+    <path refid="library.sbt:_xmlenc:xmlenc:0.52:jar.classpath"/>
+    <path refid="library.sbt:_xml-apis:xml-apis:1.3.04:jar.classpath"/>
+    <path refid="library.sbt:_xerces:xercesimpl:2.9.1:jar.classpath"/>
+    <path refid="library.sbt:_oro:oro:2.0.8:jar.classpath"/>
+    <path refid="library.sbt:_org.xerial.snappy:snappy-java:1.1.2.6:jar.classpath"/>
+    <path refid="library.sbt:_org.tukaani:xz:1.0:jar.classpath"/>
+    <path refid="library.sbt:_org.spark-project.spark:unused:1.0.0:jar.classpath"/>
+    <path refid="library.sbt:_org.sonatype.sisu.inject:cglib:2.2.1-v20090111:jar.classpath"/>
+    <path refid="library.sbt:_org.slf4j:slf4j-log4j12:1.7.21:jar.classpath"/>
+    <path refid="library.sbt:_org.slf4j:slf4j-api:1.7.26:jar.classpath"/>
+    <path refid="library.sbt:_org.slf4j:jul-to-slf4j:1.7.16:jar.classpath"/>
+    <path refid="library.sbt:_org.slf4j:jcl-over-slf4j:1.7.16:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang.modules:scala-xml_2.11:1.0.3:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang.modules:scala-parser-combinators_2.11:1.0.4:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang:scalap:2.11.6:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang:scala-reflect:2.11.6:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang:scala-library:2.11.6:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang:scala-compiler:2.11.6:jar.classpath"/>
+    <path refid="library.sbt:_org.roaringbitmap:roaringbitmap:0.5.11:jar.classpath"/>
+    <path refid="library.sbt:_org.objenesis:objenesis:2.1:jar.classpath"/>
+    <path refid="library.sbt:_org.mortbay.jetty:jetty-util:6.1.26:jar.classpath"/>
+    <path refid="library.sbt:_org.lz4:lz4-java:1.4.0:jar.classpath"/>
+    <path refid="library.sbt:_org.json4s:json4s-jackson_2.11:3.2.11:jar.classpath"/>
+    <path refid="library.sbt:_org.json4s:json4s-core_2.11:3.2.11:jar.classpath"/>
+    <path refid="library.sbt:_org.json4s:json4s-ast_2.11:3.2.11:jar.classpath"/>
+    <path refid="library.sbt:_org.javassist:javassist:3.18.1-ga:jar.classpath"/>
+    <path refid="library.sbt:_org.htrace:htrace-core:3.0.4:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.media:jersey-media-jaxb:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.core:jersey-server:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.core:jersey-common:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.core:jersey-client:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.containers:jersey-container-servlet-core:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.containers:jersey-container-servlet:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.bundles.repackaged:jersey-guava:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2.external:javax.inject:2.4.0-b34:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2.external:aopalliance-repackaged:2.4.0-b34:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2:osgi-resource-locator:1.0.1:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2:hk2-utils:2.4.0-b34:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2:hk2-locator:2.4.0-b34:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2:hk2-api:2.4.0-b34:jar.classpath"/>
+    <path refid="library.sbt:_org.fusesource.leveldbjni:leveldbjni-all:1.8:jar.classpath"/>
+    <path refid="library.sbt:_org.codehaus.jettison:jettison:1.1:jar.classpath"/>
+    <path refid="library.sbt:_org.codehaus.jackson:jackson-xc:1.9.13:jar.classpath"/>
+    <path refid="library.sbt:_org.codehaus.jackson:jackson-mapper-asl:1.9.13:jar.classpath"/>
+    <path refid="library.sbt:_org.codehaus.jackson:jackson-jaxrs:1.9.13:jar.classpath"/>
+    <path refid="library.sbt:_org.codehaus.jackson:jackson-core-asl:1.9.13:jar.classpath"/>
+    <path refid="library.sbt:_org.bouncycastle:bcprov-jdk15on:1.52:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.zookeeper:zookeeper:3.4.9:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.xbean:xbean-asm5-shaded:4.4:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-unsafe_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-tags_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-streaming_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-network-shuffle_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-network-common_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-launcher_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-kvstore_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-core_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.kafka:kafka_2.11:0.10.2.2:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.kafka:kafka-clients:0.10.2.2:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.ivy:ivy:2.4.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.httpcomponents:httpcore:4.4.1:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.httpcomponents:httpclient:4.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-yarn-server-common:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-yarn-common:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-yarn-client:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-yarn-api:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-mapreduce-client-shuffle:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-mapreduce-client-jobclient:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-mapreduce-client-core:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-mapreduce-client-common:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-mapreduce-client-app:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-hdfs:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-common:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-client:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-auth:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-annotations:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.directory.server:apacheds-kerberos-codec:2.0.0-m15:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.directory.server:apacheds-i18n:2.0.0-m15:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.directory.api:api-util:1.0.0-m20:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.directory.api:api-asn1-api:1.0.0-m20:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.curator:curator-recipes:2.6.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.curator:curator-framework:2.6.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.curator:curator-client:2.6.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.commons:commons-math3:3.4.1:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.commons:commons-lang3:3.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.commons:commons-crypto:1.0.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.commons:commons-compress:1.4.1:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.avro:avro-mapred:1.7.7:hadoop2:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.avro:avro-ipc:1.7.7:tests:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.avro:avro-ipc:1.7.7:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.avro:avro:1.7.7:jar.classpath"/>
+    <path refid="library.sbt:_net.sf.py4j:py4j:0.10.6:jar.classpath"/>
+    <path refid="library.sbt:_net.sf.jopt-simple:jopt-simple:5.0.3:jar.classpath"/>
+    <path refid="library.sbt:_net.razorvine:pyrolite:4.13:jar.classpath"/>
+    <path refid="library.sbt:_net.jpountz.lz4:lz4:1.3.0:jar.classpath"/>
+    <path refid="library.sbt:_net.java.dev.jets3t:jets3t:0.9.4:jar.classpath"/>
+    <path refid="library.sbt:_net.iharder:base64:2.3.8:jar.classpath"/>
+    <path refid="library.sbt:_log4j:log4j:1.2.17:jar.classpath"/>
+    <path refid="library.sbt:_javax.xml.stream:stax-api:1.0-2:jar.classpath"/>
+    <path refid="library.sbt:_javax.xml.bind:jaxb-api:2.2.2:jar.classpath"/>
+    <path refid="library.sbt:_javax.ws.rs:javax.ws.rs-api:2.0.1:jar.classpath"/>
+    <path refid="library.sbt:_javax.validation:validation-api:1.1.0.final:jar.classpath"/>
+    <path refid="library.sbt:_javax.servlet:javax.servlet-api:3.1.0:jar.classpath"/>
+    <path refid="library.sbt:_javax.inject:javax.inject:1:jar.classpath"/>
+    <path refid="library.sbt:_javax.annotation:javax.annotation-api:1.2:jar.classpath"/>
+    <path refid="library.sbt:_javax.activation:activation:1.1.1:jar.classpath"/>
+    <path refid="library.sbt:_io.netty:netty-all:4.1.17.final:jar.classpath"/>
+    <path refid="library.sbt:_io.netty:netty:3.9.9.final:jar.classpath"/>
+    <path refid="library.sbt:_io.dropwizard.metrics:metrics-jvm:3.1.5:jar.classpath"/>
+    <path refid="library.sbt:_io.dropwizard.metrics:metrics-json:3.1.5:jar.classpath"/>
+    <path refid="library.sbt:_io.dropwizard.metrics:metrics-graphite:3.1.5:jar.classpath"/>
+    <path refid="library.sbt:_io.dropwizard.metrics:metrics-core:3.1.5:jar.classpath"/>
+    <path refid="library.sbt:_commons-net:commons-net:2.2:jar.classpath"/>
+    <path refid="library.sbt:_commons-lang:commons-lang:2.6:jar.classpath"/>
+    <path refid="library.sbt:_commons-io:commons-io:2.4:jar.classpath"/>
+    <path refid="library.sbt:_commons-httpclient:commons-httpclient:3.1:jar.classpath"/>
+    <path refid="library.sbt:_commons-digester:commons-digester:1.8:jar.classpath"/>
+    <path refid="library.sbt:_commons-configuration:commons-configuration:1.6:jar.classpath"/>
+    <path refid="library.sbt:_commons-collections:commons-collections:3.2.2:jar.classpath"/>
+    <path refid="library.sbt:_commons-codec:commons-codec:1.12:jar.classpath"/>
+    <path refid="library.sbt:_commons-cli:commons-cli:1.2:jar.classpath"/>
+    <path refid="library.sbt:_commons-beanutils:commons-beanutils-core:1.8.0:jar.classpath"/>
+    <path refid="library.sbt:_commons-beanutils:commons-beanutils:1.7.0:jar.classpath"/>
+    <path refid="library.sbt:_com.yammer.metrics:metrics-core:2.2.0:jar.classpath"/>
+    <path refid="library.sbt:_com.twitter:chill_2.11:0.8.4:jar.classpath"/>
+    <path refid="library.sbt:_com.twitter:chill-java:0.8.4:jar.classpath"/>
+    <path refid="library.sbt:_com.thoughtworks.paranamer:paranamer:2.8:jar.classpath"/>
+    <path refid="library.sbt:_com.ning:compress-lzf:1.0.3:jar.classpath"/>
+    <path refid="library.sbt:_com.jamesmurty.utils:java-xmlbuilder:1.1:jar.classpath"/>
+    <path refid="library.sbt:_com.google.protobuf:protobuf-java:2.5.0:jar.classpath"/>
+    <path refid="library.sbt:_com.google.inject:guice:3.0:jar.classpath"/>
+    <path refid="library.sbt:_com.google.guava:guava:11.0.2:jar.classpath"/>
+    <path refid="library.sbt:_com.google.code.gson:gson:2.2.4:jar.classpath"/>
+    <path refid="library.sbt:_com.google.code.findbugs:jsr305:1.3.9:jar.classpath"/>
+    <path refid="library.sbt:_com.github.luben:zstd-jni:1.3.2-2:jar.classpath"/>
+    <path refid="library.sbt:_com.fasterxml.jackson.module:jackson-module-scala_2.11:2.6.7.1:jar.classpath"/>
+    <path refid="library.sbt:_com.fasterxml.jackson.module:jackson-module-paranamer:2.7.9:jar.classpath"/>
+    <path refid="library.sbt:_com.fasterxml.jackson.core:jackson-databind:2.6.7.1:jar.classpath"/>
+    <path refid="library.sbt:_com.fasterxml.jackson.core:jackson-core:2.6.7:jar.classpath"/>
+    <path refid="library.sbt:_com.fasterxml.jackson.core:jackson-annotations:2.6.7:jar.classpath"/>
+    <path refid="library.sbt:_com.esotericsoftware:minlog:1.3.0:jar.classpath"/>
+    <path refid="library.sbt:_com.esotericsoftware:kryo-shaded:3.0.3:jar.classpath"/>
+    <path refid="library.sbt:_com.clearspring.analytics:stream:2.7.0:jar.classpath"/>
+    <path refid="library.sbt:_com.101tec:zkclient:0.10:jar.classpath"/>
+  </path>
+  
+  <path id="sparkstreaming.runtime.module.classpath">
+    <pathelement location="${sparkstreaming.testoutput.dir}"/>
+    <pathelement location="${sparkstreaming.output.dir}"/>
+    <path refid="library.sbt:_aopalliance:aopalliance:1.0:jar.classpath"/>
+    
+    <path refid="library.sbt:_xmlenc:xmlenc:0.52:jar.classpath"/>
+    <path refid="library.sbt:_xml-apis:xml-apis:1.3.04:jar.classpath"/>
+    <path refid="library.sbt:_xerces:xercesimpl:2.9.1:jar.classpath"/>
+    <path refid="library.sbt:_oro:oro:2.0.8:jar.classpath"/>
+    <path refid="library.sbt:_org.xerial.snappy:snappy-java:1.1.2.6:jar.classpath"/>
+    <path refid="library.sbt:_org.tukaani:xz:1.0:jar.classpath"/>
+    <path refid="library.sbt:_org.spark-project.spark:unused:1.0.0:jar.classpath"/>
+    <path refid="library.sbt:_org.sonatype.sisu.inject:cglib:2.2.1-v20090111:jar.classpath"/>
+    <path refid="library.sbt:_org.slf4j:slf4j-log4j12:1.7.21:jar.classpath"/>
+    <path refid="library.sbt:_org.slf4j:slf4j-api:1.7.26:jar.classpath"/>
+    <path refid="library.sbt:_org.slf4j:jul-to-slf4j:1.7.16:jar.classpath"/>
+    <path refid="library.sbt:_org.slf4j:jcl-over-slf4j:1.7.16:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang.modules:scala-xml_2.11:1.0.3:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang.modules:scala-parser-combinators_2.11:1.0.4:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang:scalap:2.11.6:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang:scala-reflect:2.11.6:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang:scala-library:2.11.6:jar.classpath"/>
+    <path refid="library.sbt:_org.scala-lang:scala-compiler:2.11.6:jar.classpath"/>
+    <path refid="library.sbt:_org.roaringbitmap:roaringbitmap:0.5.11:jar.classpath"/>
+    <path refid="library.sbt:_org.objenesis:objenesis:2.1:jar.classpath"/>
+    <path refid="library.sbt:_org.mortbay.jetty:jetty-util:6.1.26:jar.classpath"/>
+    <path refid="library.sbt:_org.lz4:lz4-java:1.4.0:jar.classpath"/>
+    <path refid="library.sbt:_org.json4s:json4s-jackson_2.11:3.2.11:jar.classpath"/>
+    <path refid="library.sbt:_org.json4s:json4s-core_2.11:3.2.11:jar.classpath"/>
+    <path refid="library.sbt:_org.json4s:json4s-ast_2.11:3.2.11:jar.classpath"/>
+    <path refid="library.sbt:_org.javassist:javassist:3.18.1-ga:jar.classpath"/>
+    <path refid="library.sbt:_org.htrace:htrace-core:3.0.4:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.media:jersey-media-jaxb:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.core:jersey-server:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.core:jersey-common:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.core:jersey-client:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.containers:jersey-container-servlet-core:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.containers:jersey-container-servlet:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.jersey.bundles.repackaged:jersey-guava:2.22.2:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2.external:javax.inject:2.4.0-b34:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2.external:aopalliance-repackaged:2.4.0-b34:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2:osgi-resource-locator:1.0.1:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2:hk2-utils:2.4.0-b34:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2:hk2-locator:2.4.0-b34:jar.classpath"/>
+    <path refid="library.sbt:_org.glassfish.hk2:hk2-api:2.4.0-b34:jar.classpath"/>
+    <path refid="library.sbt:_org.fusesource.leveldbjni:leveldbjni-all:1.8:jar.classpath"/>
+    <path refid="library.sbt:_org.codehaus.jettison:jettison:1.1:jar.classpath"/>
+    <path refid="library.sbt:_org.codehaus.jackson:jackson-xc:1.9.13:jar.classpath"/>
+    <path refid="library.sbt:_org.codehaus.jackson:jackson-mapper-asl:1.9.13:jar.classpath"/>
+    <path refid="library.sbt:_org.codehaus.jackson:jackson-jaxrs:1.9.13:jar.classpath"/>
+    <path refid="library.sbt:_org.codehaus.jackson:jackson-core-asl:1.9.13:jar.classpath"/>
+    <path refid="library.sbt:_org.bouncycastle:bcprov-jdk15on:1.52:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.zookeeper:zookeeper:3.4.9:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.xbean:xbean-asm5-shaded:4.4:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-unsafe_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-tags_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-streaming_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-network-shuffle_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-network-common_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-launcher_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-kvstore_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.spark:spark-core_2.11:2.3.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.kafka:kafka_2.11:0.10.2.2:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.kafka:kafka-clients:0.10.2.2:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.ivy:ivy:2.4.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.httpcomponents:httpcore:4.4.1:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.httpcomponents:httpclient:4.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-yarn-server-common:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-yarn-common:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-yarn-client:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-yarn-api:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-mapreduce-client-shuffle:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-mapreduce-client-jobclient:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-mapreduce-client-core:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-mapreduce-client-common:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-mapreduce-client-app:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-hdfs:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-common:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-client:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-auth:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.hadoop:hadoop-annotations:2.6.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.directory.server:apacheds-kerberos-codec:2.0.0-m15:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.directory.server:apacheds-i18n:2.0.0-m15:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.directory.api:api-util:1.0.0-m20:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.directory.api:api-asn1-api:1.0.0-m20:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.curator:curator-recipes:2.6.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.curator:curator-framework:2.6.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.curator:curator-client:2.6.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.commons:commons-math3:3.4.1:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.commons:commons-lang3:3.5:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.commons:commons-crypto:1.0.0:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.commons:commons-compress:1.4.1:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.avro:avro-mapred:1.7.7:hadoop2:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.avro:avro-ipc:1.7.7:tests:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.avro:avro-ipc:1.7.7:jar.classpath"/>
+    <path refid="library.sbt:_org.apache.avro:avro:1.7.7:jar.classpath"/>
+    <path refid="library.sbt:_net.sf.py4j:py4j:0.10.6:jar.classpath"/>
+    <path refid="library.sbt:_net.sf.jopt-simple:jopt-simple:5.0.3:jar.classpath"/>
+    <path refid="library.sbt:_net.razorvine:pyrolite:4.13:jar.classpath"/>
+    <path refid="library.sbt:_net.jpountz.lz4:lz4:1.3.0:jar.classpath"/>
+    <path refid="library.sbt:_net.java.dev.jets3t:jets3t:0.9.4:jar.classpath"/>
+    <path refid="library.sbt:_net.iharder:base64:2.3.8:jar.classpath"/>
+    <path refid="library.sbt:_log4j:log4j:1.2.17:jar.classpath"/>
+    <path refid="library.sbt:_javax.xml.stream:stax-api:1.0-2:jar.classpath"/>
+    <path refid="library.sbt:_javax.xml.bind:jaxb-api:2.2.2:jar.classpath"/>
+    <path refid="library.sbt:_javax.ws.rs:javax.ws.rs-api:2.0.1:jar.classpath"/>
+    <path refid="library.sbt:_javax.validation:validation-api:1.1.0.final:jar.classpath"/>
+    <path refid="library.sbt:_javax.servlet:javax.servlet-api:3.1.0:jar.classpath"/>
+    <path refid="library.sbt:_javax.inject:javax.inject:1:jar.classpath"/>
+    <path refid="library.sbt:_javax.annotation:javax.annotation-api:1.2:jar.classpath"/>
+    <path refid="library.sbt:_javax.activation:activation:1.1.1:jar.classpath"/>
+    <path refid="library.sbt:_io.netty:netty-all:4.1.17.final:jar.classpath"/>
+    <path refid="library.sbt:_io.netty:netty:3.9.9.final:jar.classpath"/>
+    <path refid="library.sbt:_io.dropwizard.metrics:metrics-jvm:3.1.5:jar.classpath"/>
+    <path refid="library.sbt:_io.dropwizard.metrics:metrics-json:3.1.5:jar.classpath"/>
+    <path refid="library.sbt:_io.dropwizard.metrics:metrics-graphite:3.1.5:jar.classpath"/>
+    <path refid="library.sbt:_io.dropwizard.metrics:metrics-core:3.1.5:jar.classpath"/>
+    <path refid="library.sbt:_commons-net:commons-net:2.2:jar.classpath"/>
+    <path refid="library.sbt:_commons-lang:commons-lang:2.6:jar.classpath"/>
+    <path refid="library.sbt:_commons-io:commons-io:2.4:jar.classpath"/>
+    <path refid="library.sbt:_commons-httpclient:commons-httpclient:3.1:jar.classpath"/>
+    <path refid="library.sbt:_commons-digester:commons-digester:1.8:jar.classpath"/>
+    <path refid="library.sbt:_commons-configuration:commons-configuration:1.6:jar.classpath"/>
+    <path refid="library.sbt:_commons-collections:commons-collections:3.2.2:jar.classpath"/>
+    <path refid="library.sbt:_commons-codec:commons-codec:1.12:jar.classpath"/>
+    <path refid="library.sbt:_commons-cli:commons-cli:1.2:jar.classpath"/>
+    <path refid="library.sbt:_commons-beanutils:commons-beanutils-core:1.8.0:jar.classpath"/>
+    <path refid="library.sbt:_commons-beanutils:commons-beanutils:1.7.0:jar.classpath"/>
+    <path refid="library.sbt:_com.yammer.metrics:metrics-core:2.2.0:jar.classpath"/>
+    <path refid="library.sbt:_com.twitter:chill_2.11:0.8.4:jar.classpath"/>
+    <path refid="library.sbt:_com.twitter:chill-java:0.8.4:jar.classpath"/>
+    <path refid="library.sbt:_com.thoughtworks.paranamer:paranamer:2.8:jar.classpath"/>
+    <path refid="library.sbt:_com.ning:compress-lzf:1.0.3:jar.classpath"/>
+    <path refid="library.sbt:_com.jamesmurty.utils:java-xmlbuilder:1.1:jar.classpath"/>
+    <path refid="library.sbt:_com.google.protobuf:protobuf-java:2.5.0:jar.classpath"/>
+    <path refid="library.sbt:_com.google.inject:guice:3.0:jar.classpath"/>
+    <path refid="library.sbt:_com.google.guava:guava:11.0.2:jar.classpath"/>
+    <path refid="library.sbt:_com.google.code.gson:gson:2.2.4:jar.classpath"/>
+    <path refid="library.sbt:_com.google.code.findbugs:jsr305:1.3.9:jar.classpath"/>
+    <path refid="library.sbt:_com.github.luben:zstd-jni:1.3.2-2:jar.classpath"/>
+    <path refid="library.sbt:_com.fasterxml.jackson.module:jackson-module-scala_2.11:2.6.7.1:jar.classpath"/>
+    <path refid="library.sbt:_com.fasterxml.jackson.module:jackson-module-paranamer:2.7.9:jar.classpath"/>
+    <path refid="library.sbt:_com.fasterxml.jackson.core:jackson-databind:2.6.7.1:jar.classpath"/>
+    <path refid="library.sbt:_com.fasterxml.jackson.core:jackson-core:2.6.7:jar.classpath"/>
+    <path refid="library.sbt:_com.fasterxml.jackson.core:jackson-annotations:2.6.7:jar.classpath"/>
+    <path refid="library.sbt:_com.esotericsoftware:minlog:1.3.0:jar.classpath"/>
+    <path refid="library.sbt:_com.esotericsoftware:kryo-shaded:3.0.3:jar.classpath"/>
+    <path refid="library.sbt:_com.clearspring.analytics:stream:2.7.0:jar.classpath"/>
+    <path refid="library.sbt:_com.101tec:zkclient:0.10:jar.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.sparkstreaming">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.sparkstreaming">
+    <patternset refid="excluded.from.module.sparkstreaming"/>
+  </patternset>
+  
+  <path id="sparkstreaming.module.sourcepath">
+    <dirset dir="${module.sparkstreaming.basedir}/../../../SampleSparkStreaming">
+      <include name="src/main/scala"/>
+    </dirset>
+  </path>
+  
+  <path id="sparkstreaming.module.test.sourcepath">
+    <dirset dir="${module.sparkstreaming.basedir}/../../../SampleSparkStreaming">
+      <include name="src/test/scala"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.sparkstreaming" depends="compile.module.sparkstreaming.production,compile.module.sparkstreaming.tests" description="Compile module SparkStreaming"/>
+  
+  <target name="compile.module.sparkstreaming.production" depends="register.custom.compilers" description="Compile module SparkStreaming; production classes">
+    <mkdir dir="${sparkstreaming.output.dir}"/>
+    <javac2 destdir="${sparkstreaming.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.sparkstreaming}/javac">
+      <compilerarg line="${compiler.args.sparkstreaming}"/>
+      <bootclasspath refid="sparkstreaming.module.bootclasspath"/>
+      <classpath refid="sparkstreaming.module.production.classpath"/>
+      <src refid="sparkstreaming.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.sparkstreaming"/>
+    </javac2>
+    
+    <copy todir="${sparkstreaming.output.dir}">
+      <fileset dir="${module.sparkstreaming.basedir}/../../src/main/scala">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.sparkstreaming.tests" depends="register.custom.compilers,compile.module.sparkstreaming.production" description="compile module SparkStreaming; test classes" unless="skip.tests">
+    <mkdir dir="${sparkstreaming.testoutput.dir}"/>
+    <javac2 destdir="${sparkstreaming.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.sparkstreaming}/javac">
+      <compilerarg line="${compiler.args.sparkstreaming}"/>
+      <bootclasspath refid="sparkstreaming.module.bootclasspath"/>
+      <classpath refid="sparkstreaming.module.classpath"/>
+      <src refid="sparkstreaming.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.sparkstreaming"/>
+    </javac2>
+    
+    <copy todir="${sparkstreaming.testoutput.dir}">
+      <fileset dir="${module.sparkstreaming.basedir}/../../src/test/scala">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.sparkstreaming" description="cleanup module">
+    <delete dir="${sparkstreaming.output.dir}"/>
+    <delete dir="${sparkstreaming.testoutput.dir}"/>
+  </target>
+</project>
