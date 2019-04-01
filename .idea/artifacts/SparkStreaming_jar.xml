@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="SparkStreaming:jar">
-    <output-path>$PROJECT_DIR$/classes/artifacts/SparkStreaming_jar</output-path>
+    <output-path>$PROJECT_DIR$/out/artifacts/SparkStreaming_jar</output-path>
     <root id="archive" name="SparkStreaming.jar">
       <element id="module-output" name="SparkStreaming" />
       <element id="extracted-dir" path="$USER_HOME$/.ivy2/cache/com.101tec/zkclient/jars/zkclient-0.10.jar" path-in-jar="/" />
