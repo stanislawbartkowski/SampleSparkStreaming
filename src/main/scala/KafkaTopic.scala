@@ -6,7 +6,7 @@ import kafka.utils.ZkUtils
 
 object KafkaTopic {
 
-  def createTopic(zkUri : String,topic : String) = {
+  def createTopic(zkUri : String,topic : String, partitions : Int) = {
     println("Zookeeper " + zkUri )
     println("I'm going to check " + topic)
     val sessionTimeoutMs = 10000
@@ -17,6 +17,10 @@ object KafkaTopic {
     println("Got it")
     val exist = AdminUtils.topicExists(zkUtils,topic)
     println(if (exist) "Exist" else "Sorry, does not exist")
+    if (! exist) {
+      println("If does not exist, let's create")
+      AdminUtils.createTopic(zkUtils,topic,partitions,1)
+    }
   }
 
 }
