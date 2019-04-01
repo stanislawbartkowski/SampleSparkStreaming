@@ -8,6 +8,7 @@ object Main extends  App {
 
    val ZOOKEEPER : String = "zookeeper"
    val TOPIC : String = "topic"
+   val PARTITIONS : String = "partitions"
 
    def printHelp = {
       println(" /what/ /prop/")
@@ -31,7 +32,7 @@ object Main extends  App {
    val what : String = args(0)
    println(what)
    what match  {
-      case "createtopic" =>  createTopic(prop.getProperty(ZOOKEEPER),prop.getProperty(TOPIC))
+      case "createtopic" =>  createTopic(prop.getProperty(ZOOKEEPER),prop.getProperty(TOPIC), prop.getProperty(PARTITIONS).toInt)
       case _  => printHelp
    }
 }
