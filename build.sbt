@@ -14,7 +14,11 @@ libraryDependencies += "org.apache.spark" %% "spark-core" % "2.3.0" % "provided"
 libraryDependencies += "org.apache.spark" %% "spark-streaming" % "2.3.0" % "provided"
 
 // https://mvnrepository.com/artifact/org.apache.kafka/kafka
-libraryDependencies += "org.apache.kafka" %% "kafka" % "0.10.2.2"
+libraryDependencies += "org.apache.kafka" %% "kafka" % "2.1.1"
+
+
+
+
 
 
 
