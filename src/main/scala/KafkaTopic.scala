@@ -13,7 +13,7 @@ object KafkaTopic {
     val connectionTimeoutMs = 10000
     val (zkClient, zkConnection) = ZkUtils.createZkClientAndConnection(zkUri, sessionTimeoutMs, connectionTimeoutMs)
     println("Connecting to Zookeeper")
-    val zkUtils = new ZkUtils(zkClient, zkConnection, false)
+    val zkUtils = new ZkUtils(zkClient, zkConnection, true)
     println("Got it")
     val exist = AdminUtils.topicExists(zkUtils,topic)
     println(if (exist) "Exist" else "Sorry, does not exist")
