@@ -7,14 +7,16 @@ import kafka.utils.ZkUtils
 object KafkaTopic {
 
   def createTopic(zkUri : String,topic : String) = {
-     println("Create topic: " + topic)
+    println("Zookeeper " + zkUri )
+    println("I'm going to check " + topic)
     val sessionTimeoutMs = 10000
     val connectionTimeoutMs = 10000
     val (zkClient, zkConnection) = ZkUtils.createZkClientAndConnection(zkUri, sessionTimeoutMs, connectionTimeoutMs)
+    println("Connecting to Zookeeper")
     val zkUtils = new ZkUtils(zkClient, zkConnection, false)
     println("Got it")
     val exist = AdminUtils.topicExists(zkUtils,topic)
-    println(exist)
+    println(if (exist) "Exist" else "Sorry, does not exist")
   }
 
 }
