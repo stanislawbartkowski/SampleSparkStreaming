@@ -34,6 +34,11 @@ object KafkaTopic {
   }
 */
 
+  private def setoftopics(adminClient : AdminClient):  Set[String] = {
+    val l: ListTopicsResult = adminClient.listTopics()
+    l.names().get().toSet
+  }
+
   def createTopic(prop : Properties) = {
     val topic: String = prop.getProperty(TOPIC)
     println(BOOTSTRAP + prop.getProperty(BOOTSTRAP))
@@ -41,13 +46,9 @@ object KafkaTopic {
 
     val adminClient = AdminClient.create(prop)
     println("OK, got it")
-    //    val numPartitions = prop.getProperty(PARTITIONS).toInt
-    //    val replicationFactor :Short = 1
-    //    println("I'm going to check if " + topic + " exists" )
-    //    val newTopic = new NewTopic(topic, numPartitions, replicationFactor)
-    val l: ListTopicsResult = adminClient.listTopics()
     println("List of topics available:")
-    val topics : Set[String] = l.names().get().toSet
+    println("============")
+    val topics : Set[String] = setoftopics(adminClient)
     topics.foreach(println)
     println("============")
     if (topics contains topic) println(topic + " topic already created, do nothing")
@@ -55,10 +56,14 @@ object KafkaTopic {
       println("I'm going to create topic " + topic)
       val numPartitions = prop.getProperty(PARTITIONS).toInt
       val replicationFactor :Short = 1
-      println("I'm going to check if " + topic + " exists" )
       val newTopic = new NewTopic(topic, numPartitions, replicationFactor)
       adminClient.createTopics(List(newTopic))
-      println("Done, I hope")
+      println("Command executed, now wait unless emerges")
+      var i : Int = 0
+      while (( ! (setoftopics(adminClient) contains topics)) && (i < 10)) {
+        println(i)
+        i = i+1
+      }
     }
 
   }
