@@ -1,2 +1,3 @@
 sh/kafka.properties
 sh/topic.sh
+sh/stream.sh
