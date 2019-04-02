@@ -18,11 +18,13 @@ object KafkaStream {
     println("Creating Spark context")
     val conf = new SparkConf().setAppName("Streaming Test")
     val ssc = new StreamingContext(conf, Milliseconds(prop.getProperty(BATCHINTERVAL).toInt))
+    println("Opening Direct Stream")
     val lines: DStream[ConsumerRecord[String, String]] = {
       val i : InputDStream[ConsumerRecord[String, String]] =
       KafkaUtils.createDirectStream[String, String](ssc, PreferConsistent, Subscribe[String,String](Set(topic),prop.toMap))
       i
     }
+    println("Opened")
     val parsedLines : DStream[(Long,String)] = lines.map{ case (c) => (c.key().toLong, c.value()) }
     parsedLines.foreachRDD(rdd => {
       rdd.foreach( p => println(p._1 + " " + p._2))
