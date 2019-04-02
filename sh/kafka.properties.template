@@ -1,4 +1,4 @@
-zookeeper=mdp1.sb.com:2181,mdp2.sb.com:2181,mdp3.sb.com:2181
 topic=a
 partitions=20
 bootstrap=aaa
+batch.interval=1000
