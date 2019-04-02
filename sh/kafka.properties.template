@@ -1,4 +1,0 @@
-topic=a
-partitions=20
-bootstrap=aaa
-batch.interval=1000

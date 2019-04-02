@@ -15,6 +15,7 @@ object KafkaStream {
   def BATCHINTERVAL = "batch.interval"
 
   def runStream(prop : Properties, topic : String): Unit = {
+    println("Creating Spark context")
     val conf = new SparkConf().setAppName("Streaming Test")
     val ssc = new StreamingContext(conf, Milliseconds(prop.getProperty(BATCHINTERVAL).toInt))
     val lines: DStream[ConsumerRecord[String, String]] = {
@@ -26,6 +27,7 @@ object KafkaStream {
     parsedLines.foreachRDD(rdd => {
       rdd.foreach( p => println(p._1 + " " + p._2))
     })
+    println("Start streaming, waiting for input")
     ssc.start()
     ssc.awaitTermination()
   }
