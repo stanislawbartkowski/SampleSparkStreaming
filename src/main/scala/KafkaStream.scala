@@ -8,6 +8,11 @@ import org.apache.spark.streaming.kafka010.KafkaUtils
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
 import scala.collection.JavaConversions._
+import org.apache.kafka.clients.consumer.ConsumerConfig
+import org.apache.kafka.common.serialization.LongDeserializer
+import org.apache.kafka.common.serialization.LongSerializer
+import org.apache.kafka.common.serialization.StringDeserializer
+import org.apache.kafka.common.serialization.StringSerializer
 
 
 object KafkaStream {
@@ -16,6 +21,8 @@ object KafkaStream {
 
   def runStream(prop : Properties, topic : String): Unit = {
     println("Creating Spark context")
+    prop.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, classOf[LongDeserializer].getName)
+    prop.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, classOf[StringDeserializer].getName)
     val conf = new SparkConf().setAppName("Streaming Test")
     val ssc = new StreamingContext(conf, Milliseconds(prop.getProperty(BATCHINTERVAL).toInt))
     println("Opening Direct Stream")
