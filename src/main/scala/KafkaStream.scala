@@ -21,7 +21,8 @@ object KafkaStream {
 
   def runStream(prop : Properties, topic : String): Unit = {
     println("Creating Spark context")
-    prop.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, classOf[LongDeserializer].getName)
+//    prop.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, classOf[LongDeserializer].getName)
+    prop.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, classOf[StringDeserializer].getName)
     prop.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, classOf[StringDeserializer].getName)
     val conf = new SparkConf().setAppName("Streaming Test")
     val ssc = new StreamingContext(conf, Milliseconds(prop.getProperty(BATCHINTERVAL).toInt))
@@ -34,7 +35,9 @@ object KafkaStream {
     println("Opened")
     val parsedLines : DStream[(Long,String)] = lines.map{ case (c) => (c.key().toLong, c.value()) }
     parsedLines.foreachRDD(rdd => {
+      println("================================= NEXT STREAM ==================")
       rdd.foreach( p => println(p._1 + " " + p._2))
+      println("=================================")
     })
     println("Start streaming, waiting for input")
     ssc.start()
