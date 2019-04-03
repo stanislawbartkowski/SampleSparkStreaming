@@ -3,3 +3,4 @@ sh/topic.sh
 sh/stream.sh
 sh/bench.keytab
 sh/jaas
+.idea/libraries
