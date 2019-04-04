@@ -18,13 +18,15 @@ import org.apache.kafka.common.serialization.StringSerializer
 object KafkaStream {
 
   def BATCHINTERVAL = "batch.interval"
+  def LOCAL="local"
+  def APPNAME="Streaming test"
 
   def runStream(prop : Properties, topic : String): Unit = {
     println("Creating Spark context")
     prop.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, classOf[LongDeserializer].getName)
-//    prop.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, classOf[StringDeserializer].getName)
     prop.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, classOf[StringDeserializer].getName)
-    val conf = new SparkConf().setAppName("Streaming Test")
+    val conf = if (prop.containsKey(LOCAL)) new SparkConf().setMaster("local").setAppName(APPNAME)
+    else new SparkConf().setAppName(APPNAME)
     val ssc = new StreamingContext(conf, Milliseconds(prop.getProperty(BATCHINTERVAL).toInt))
     println("Opening Direct Stream")
     val lines: DStream[ConsumerRecord[Long, String]] = {
@@ -38,6 +40,7 @@ object KafkaStream {
       println("================================= NEXT STREAM ==================")
       rdd.foreach( p => println(p._1 + " " + p._2))
       println("=================================")
+      KafkaOutput.produce(" Number of messages : " + rdd.count())
     })
     println("Start streaming, waiting for input")
     ssc.start()
