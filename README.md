@@ -37,6 +37,15 @@ KafkaClient {
    principal="bench@FYRE.NET";
 };
 ```
+Make sure that proper *principal* is specified:<br>
+> klist -kt jaas/bench.keytab 
+```
+Keytab name: FILE:jaas/bench.keytab
+KVNO Timestamp           Principal
+---- ------------------- ------------------------------------------------------
+   3 28.04.2019 10:56:00 bench@FYRE.NET
+   3 28.04.2019 10:56:00 bench@FYRE.NET
+```
 *keyTab* parameter should point to proper *keytab* file according to *spark-submit* command and *principal* is user principal name.<br>
 ## kafka.properties
 Prepare *kafka.properties* file. Use *template/kafka.properties* as an example.
