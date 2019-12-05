@@ -114,6 +114,11 @@ I'm opening kafka topic test_output
 ```
 ## Verify that Spark Streaming is running
 >  /usr/hdp/current/kafka-broker/bin/kafka-console-consumer.sh --security-protocol PLAINTEXTSASL --bootstrap-server a1.fyre.ibm.com:6667,aa1.fyre.ibm.com:6667,hurds1.fyre.ibm.com:6667 --topic test_output
+<br>
+
+>  /usr/hdp/3.1.0.0-78/kafka/bin/kafka-console-consumer.sh --consumer-property security.protocol=SASL_PLAINTEXT  --topic output_topic -bootstrap-server mdp1:6667
+<br>
+
 ```
 0 :  Number of messages : 2535
 1 :  Number of messages : 418
