@@ -4,3 +4,6 @@ sh/stream.sh
 sh/bench.keytab
 sh/jaas
 .idea/libraries
+spark*
+sample*
+build*
